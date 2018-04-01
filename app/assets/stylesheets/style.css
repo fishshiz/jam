@@ -13,10 +13,16 @@
   height: 300px;
 }
 
+
+
 .half {
   background-color: rgb(223, 101, 152);
   color: rgb(252, 191, 243);
   height: 200px;
+}
+
+.active {
+    background-color: aqua;
 }
 
 li {

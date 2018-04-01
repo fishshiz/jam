@@ -1,15 +1,19 @@
 var Tone = require("Tone");
 
 function start() {
-  var synth = new Tone.AMSynth().toMaster();
+  var synth = new Tone.PolySynth(6, Tone.Synth).toMaster();
   document.addEventListener("keydown", function(e) {
-    keyDown(synth, e);
+    let key = document.querySelector(`li[data-key="${e.keyCode}"]`);
+    if (!key) return;
+    key.classList.add("active");
+    keyDown(key, synth, e);
   });
   document.addEventListener("keyup", function(e) {
-    keyUp(synth, e);
+    let key = document.querySelector(`li[data-key="${e.keyCode}"]`);
+    if (!key) return;
+    key.classList.remove("active");
+    release(key, synth, e);
   });
-  
-
 
   //attach a listener to all of the buttons
   document.querySelectorAll("li").forEach(function(button) {
@@ -30,20 +34,14 @@ function attack(synth, e) {
   synth.triggerAttack(e.target.textContent);
 }
 
-const hash = { 65: "C3", 87: "C#3", 83: "D3", 69: "D#3", 68: "E3", 70: "F3", 84: "F#3", 71: "G3", 89: "G#3", 72: "A3", 85: "A#3", 74: "B3", 75: "C4", 79: "C#4", 76: "D4", 80: "D#4", 186: "E4", 222: "F4" };
-function keyDown(synth, e) {
-  if (Object.keys(hash).includes(e.keyCode.toString())) {
-    synth.triggerAttack(hash[e.keyCode]);
-  }
+function keyDown(key, synth, e) {
+  let note = key.innerHTML;
+  synth.triggerAttack(note);
 }
 
-function keyUp(synth, e) {
-  if (Object.keys(hash).includes(e.keyCode.toString())) {
-    release(synth);
-  }
-}
-function release (synth) {
-synth.triggerRelease();
+function release(key, synth, e) {
+  let note = key.innerHTML;
+  synth.triggerRelease(note);
 }
 document.addEventListener("DOMContentLoaded", function() {
   start();
