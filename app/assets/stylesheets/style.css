@@ -1,5 +1,6 @@
 .synth {
-  border: 2px solid orange;
+  /* border-top: 40px solid rgb(198, 135, 182); */
+  /* box-shadow: 0 5px 5px rgb(235, 149, 214); */
   /* display: grid; */
   /* grid-template-columns: repeat(13, 1fr); */
   /* grid-template-rows: 100px 50px; */
@@ -90,7 +91,6 @@ li{
 
   position: relative;
   z-index: 1;
-  cursor: pointer;
 
   color: transparent;
 }
