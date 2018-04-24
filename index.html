@@ -8,7 +8,7 @@
     <title>🍓 Jam</title>
 </head>
 
-<body>
+<body id="root">
     <div class="title">
         <h2>🍓 Jam</h2>
     </div>
@@ -20,27 +20,12 @@
         <input class="player__slider" name="detune" type="range" min="-1500" max="1500" step="1" />
         <label>.volume</label>
         <input class="player__slider" name="volume" type="range" min="-12" max="12" step="1"/>
+        <form>
+            <input id="bpm" type="number" value="60">
+            <button type="button" onclick="submitBPM()">Enter BPM</button>
+        </form>
     </div>
-    <ol class="synth">
-        <li data-key="65" class="whole noselect">C3</li>
-        <li data-key="87" class="half noselect">C#3</li>
-        <li data-key="83" class="whole noselect">D3</li>
-        <li data-key="69" class="half noselect">D#3</li>
-        <li data-key="68" class="whole noselect">E3</li>
-        <li data-key="70" class="whole noselect">F3</li>
-        <li data-key="84" class="half noselect">F#3</li>
-        <li data-key="71" class="whole noselect">G3</li>
-        <li data-key="89" class="half noselect">G#3</li>
-        <li data-key="72" class="whole noselect">A3</li>
-        <li data-key="85" class="half noselect">A#3</li>
-        <li data-key="74" class="whole noselect">B3</li>
-        <li data-key="75" class="whole noselect">C4</li>
-        <li data-key="79" class="half noselect">C#4</li>
-        <li data-key="76" class="whole noselect">D4</li>
-        <li data-key="80" class="half noselect">D#4</li>
-        <li data-key="186" class="whole noselect">E4</li>
-        <li data-key="222" class="whole noselect">F4</li>
-    </ol>
+    
 </body>
 
 </html>

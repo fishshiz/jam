@@ -1,13 +1,13 @@
 var path = require("path");
 
 module.exports = {
-  entry: "./entry.js",
+  entry: "./jam.jsx",
   output: {
     path: path.resolve(__dirname, "app", "assets", "javascripts"),
     filename: "bundle.js"
   },
   resolve: {
-    extensions: [".js", "*"]
+    extensions: [".jsx", ".js", "*"]
   },
   devtool: "source-map",
   module: {
@@ -17,7 +17,7 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: "babel-loader",
         query: {
-          presets: ["es2015"]
+          presets: ["es2015", "react"]
         }
       }
     ]
