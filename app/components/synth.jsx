@@ -14,10 +14,12 @@ export default class Synth extends React.Component {
     this.release = this.release.bind(this);
     this.triggerKeyDown = this.triggerKeyDown.bind(this);
     this.triggerRelease = this.triggerRelease.bind(this);
+    this.toggleControls = this.toggleControls.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.synth !== nextProps.synth) {
+      this.synth.dispose();
       this.setState({ synth: nextProps.synth });
       if (nextProps.synth === "PolySynth") {
         this.synth = new Tone.PolySynth().toMaster();
@@ -69,10 +71,12 @@ export default class Synth extends React.Component {
     }
   }
 
+  toggleControls() {
+    this.refs.controls.toggleControls();
+  }
+
   render() {
-    return (
-      <div className="outerDiv">
-        <Controls synth={this.synth} />
+    return <div className="outerDiv">
         <ol className="synth">
           <li data-key="65" className="whole noselect">
             C3
@@ -129,7 +133,10 @@ export default class Synth extends React.Component {
             F4
           </li>
         </ol>
-      </div>
-    );
+        <div className="button__container">
+        <button className="toggle__controls" onClick={this.toggleControls}>Controls</button>
+        </div>
+        <Controls ref="controls" synth={this.props.synth} />
+      </div>;
   }
 }
