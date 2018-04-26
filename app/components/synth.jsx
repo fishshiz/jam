@@ -1,6 +1,6 @@
 import React from "react";
 import Tone from "tone";
-import Controls from "./controls";
+import Controls from "./control_panels/controls";
 
 export default class Synth extends React.Component {
   constructor(props) {
@@ -62,7 +62,6 @@ export default class Synth extends React.Component {
   }
 
   release(key) {
-    console.log(this.state.synth);
     if (this.state.synth === "PolySynth") {
       let note = key.innerHTML;
       this.synth.triggerRelease(note);
@@ -76,18 +75,19 @@ export default class Synth extends React.Component {
   }
 
   render() {
-    return <div className="outerDiv">
+    return (
+      <div className="outerDiv">
         <ol className="synth">
           <li data-key="65" className="whole noselect">
             C3
           </li>
-          <li data-key="87" className="half noselect">
+          <li data-key="87" className="half noselect cs">
             C#3
           </li>
           <li data-key="83" className="whole noselect">
             D3
           </li>
-          <li data-key="69" className="half noselect">
+          <li data-key="69" className="half noselect ds">
             D#3
           </li>
           <li data-key="68" className="whole noselect">
@@ -96,19 +96,19 @@ export default class Synth extends React.Component {
           <li data-key="70" className="whole noselect">
             F3
           </li>
-          <li data-key="84" className="half noselect">
+          <li data-key="84" className="half noselect fs">
             F#3
           </li>
           <li data-key="71" className="whole noselect">
             G3
           </li>
-          <li data-key="89" className="half noselect">
+          <li data-key="89" className="half noselect gs">
             G#3
           </li>
           <li data-key="72" className="whole noselect">
             A3
           </li>
-          <li data-key="85" className="half noselect">
+          <li data-key="85" className="half noselect as">
             A#3
           </li>
           <li data-key="74" className="whole noselect">
@@ -117,13 +117,13 @@ export default class Synth extends React.Component {
           <li data-key="75" className="whole noselect">
             C4
           </li>
-          <li data-key="79" className="half noselect">
+          <li data-key="79" className="half noselect cstwo">
             C#4
           </li>
           <li data-key="76" className="whole noselect">
             D4
           </li>
-          <li data-key="80" className="half noselect">
+          <li data-key="80" className="half noselect dstwo">
             D#4
           </li>
           <li data-key="186" className="whole noselect">
@@ -134,9 +134,12 @@ export default class Synth extends React.Component {
           </li>
         </ol>
         <div className="button__container">
-        <button className="toggle__controls" onClick={this.toggleControls}>Controls</button>
+          <button className="toggle__controls" onClick={this.toggleControls}>
+            Controls
+          </button>
         </div>
-        <Controls ref="controls" synth={this.props.synth} />
-      </div>;
+        <Controls ref="controls" synth={this.props.synth} rel={this.synth} />
+      </div>
+    );
   }
 }
