@@ -10,7 +10,8 @@ export default class Timeline extends React.Component {
     this.state = {
       player: player,
       paused: true,
-      bpm: 60
+      bpm: 60,
+      recording: false
     };
 
     Tone.Transport.bpm.value = 60;
@@ -31,18 +32,31 @@ export default class Timeline extends React.Component {
     this.submitBPM = this.submitBPM.bind(this);
     this.updateField = this.updateField.bind(this);
     this.loop = this.loop.bind(this);
+    this.toggleRecord = this.toggleRecord.bind(this);
   }
   togglePlay() {
     if (this.state.paused) {
-      this.state.paused = false;
-      
-      
+      this.setState({ paused: false });
+
       Tone.Transport.start();
     } else {
-      this.state.paused = true;
+      this.setState({ paused: true });
       Tone.Transport.stop();
 
       this.stop();
+    }
+  }
+
+  toggleRecord() {
+    if (this.state.recording) {
+      this.setState({ recording: false });
+      document.querySelector(".record_btn").classList.remove("listening");
+    } else {
+      this.setState({ recording: true });
+      document.querySelector(".record_btn").classList.add("listening");
+      if(this.state.paused) {
+        this.togglePlay();
+      }
     }
   }
 
@@ -61,7 +75,9 @@ export default class Timeline extends React.Component {
   }
 
   loop() {
-    let progress = (Tone.Transport.seconds % Tone.Transport.loopEnd) / Tone.Transport.loopEnd;
+    let progress =
+      (Tone.Transport.seconds % Tone.Transport.loopEnd) /
+      Tone.Transport.loopEnd;
     progress = progress - Math.floor(progress);
     if (progress > 1) {
       document.getElementById("bar").setAttribute("style", "left: 0");
@@ -77,10 +93,24 @@ export default class Timeline extends React.Component {
   }
 
   render() {
-    return <div className="timeline__container">
-        <button onClick={this.togglePlay}>Play</button>
+    let icon = this.state.paused ? (
+      <i className="fas fa-play" />
+    ) : (
+      <i className="fas fa-pause" />
+    );
+    return (
+      <div className="timeline__container">
+        <button onClick={this.togglePlay}>{icon}</button>
+        <button className="record_btn" onClick={this.toggleRecord}>
+          <i className="fas fa-circle" />
+        </button>
         <form>
-          <input id="bpm" type="number" value={this.state.bpm} onChange={this.updateField} />
+          <input
+            id="bpm"
+            type="number"
+            value={this.state.bpm}
+            onChange={this.updateField}
+          />
           <button type="button" onClick={this.submitBPM}>
             Enter BPM
           </button>
@@ -89,6 +119,7 @@ export default class Timeline extends React.Component {
         <div className="timeline">
           <div id="bar"> </div>
         </div>
-      </div>;
+      </div>
+    );
   }
 }
