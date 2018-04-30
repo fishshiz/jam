@@ -48,6 +48,15 @@ li {
   font-size: 2em;
 }
 
+#bar {
+  width: 2px;
+  height: 84%;
+  position: relative;
+  top: 3%;
+  left: 0%;
+  background-color: black;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -99,7 +108,7 @@ li {
   display: inline-block;
   padding: 220px 0px 50px;
   border-radius: 0 0 5px 5px;
-  box-shadow: 0 5px 5px rgb(94, 80, 169);;
+  box-shadow: 0 5px 5px rgb(94, 80, 169);
 
   position: relative;
   z-index: 1;
@@ -110,12 +119,14 @@ li {
 .hidden {
   display: none;
 }
-.toggle__controls, .button__container {
+.toggle__controls,
+.button__container {
   z-index: 2;
   position: relative;
 }
 
-#control__wrapper, .button__container {
+#control__wrapper,
+.button__container {
   background-color: gray;
 }
 
